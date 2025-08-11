@@ -1,6 +1,36 @@
 import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react"
+import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  function sendEmail(e: any) {
+    e.preventDefault();
+
+    if (name !== "" || email !== "" || message !== "") {
+      emailjs
+      .sendForm(
+        "service_z71gwmh",
+        "template_q09xbp6",
+        e.target,
+        "t5NRgq7b7C4g2dIYt"
+      )
+      .then(() => {
+        setName('');
+        setEmail('');
+        setMessage('');
+      }).catch(() => {
+        alert('Erro ao enviar mensagem. Tente novamente mais tarde.')
+      });
+    }
+
+    alert('Por favor, preencha todos os campos!')
+  }
+
   return (
     <section id="contact" className="py-20 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-blue-50/30"></div>
@@ -75,7 +105,7 @@ export default function Contact() {
           <div>
             <h3 className="text-xl font-bold text-gray-900 mb-6">Envie uma Mensagem</h3>
 
-            <form className="space-y-4">
+            <form onSubmit={sendEmail} className="space-y-4 text-gray-700">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Nome
@@ -84,6 +114,8 @@ export default function Contact() {
                   type="text"
                   id="name"
                   name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   placeholder="Seu nome"
                 />
@@ -97,12 +129,14 @@ export default function Contact() {
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   placeholder="seu@email.com"
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
                   Assunto
                 </label>
@@ -113,7 +147,7 @@ export default function Contact() {
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   placeholder="Assunto da mensagem"
                 />
-              </div>
+              </div> */}
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
@@ -122,6 +156,8 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   rows={4}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   placeholder="Sua mensagem..."
@@ -130,7 +166,7 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="w-full bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 Enviar Mensagem
               </button>
