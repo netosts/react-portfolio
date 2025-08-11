@@ -50,14 +50,18 @@ export default function Presentations() {
             <div className="space-y-4">
 
               {/* Placeholder para apresentações futuras */}
-              <div className="bg-gray-100 rounded-lg p-4 hover:bg-gray-200 transition-colors cursor-pointer">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Modernização de Sistemas Legados</h4>
-                    <p className="text-sm text-gray-600">Estratégias e boas práticas</p>
+              <div>
+                <a href="/presentations/design_patterns_apresentacao.pptx" download="design_patterns_apresentacao.pptx">
+                  <div className="bg-gray-100 rounded-lg p-4 hover:bg-gray-200 transition-colors cursor-pointer">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Design Patterns</h4>
+                        <p className="text-sm text-gray-600">Aplicações práticas no desenvolvimento de software moderno</p>
+                      </div>
+                      <FileText className="text-blue-600" size={20} />
+                    </div>
                   </div>
-                  <FileText className="text-blue-600" size={20} />
-                </div>
+                </a>
               </div>
 
               <div className="bg-gray-100 rounded-lg p-4 hover:bg-gray-200 transition-colors cursor-pointer">
